@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 const postcss = require('./postcss');
 
 const sourceMap = process.env.TEST
@@ -16,7 +15,6 @@ const basePlugins = [
     __DEV__: process.env.NODE_ENV !== 'production',
     __PRODUCTION__: process.env.NODE_ENV === 'production',
     __TEST__: JSON.stringify(process.env.TEST || false),
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
@@ -30,7 +28,7 @@ const basePlugins = [
   new webpack.LoaderOptionsPlugin({
     test: /\.css$/,
     options: {
-      postcss,
+      postcss: postcss,
     },
   }),
   new webpack.ContextReplacementPlugin(
@@ -46,11 +44,12 @@ const devPlugins = [
 ];
 
 const prodPlugins = [
-  new webpack.optimize.CommonsChunkPlugin({
-    name: [
-      'vendor',
-    ],
-  }),
+  // TODO: Split into client vs server plugins
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: [
+  //     'vendor',
+  //   ],
+  // }),
   new webpack.optimize.UglifyJsPlugin({
     mangle: {
       keep_fnames: true,

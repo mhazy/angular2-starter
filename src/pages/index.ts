@@ -1,5 +1,9 @@
-// Put your top-level, "page" components here
-// Try to keep them organized by route, each page in
-// its own subfolder.
+import { RioMainPageComponent } from './main/main.page';
 
-export * from './hello.component';
+export const APP_PAGES = [
+  RioMainPageComponent
+];
+
+export {
+  RioMainPageComponent
+}
