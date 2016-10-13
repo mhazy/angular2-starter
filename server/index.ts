@@ -8,6 +8,5 @@ import { Server } from './server';
 import { CONFIG } from './lib/config';
 
 enableProdMode();
-
 const server = new Server(CONFIG.port, CONFIG.token);
 server.start();
